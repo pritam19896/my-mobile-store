@@ -1,0 +1,71 @@
+<div class="card">
+  <div class="card-header">
+    Products {{ratingToShow}}
+    <!-- <span appHighlight [hightlightColor]="'red'">Highlighted text</span> -->
+    <span [appHighlight]="'red'">Highlighted text</span>
+  </div>
+  <div class="card-body">
+    <p>
+      <input type="text" class="form-control" placeholder="Filter by" [(ngModel)]="filterBy">
+      <!-- <input type="text" class="form-control" placeholder="Filter by" (input)="filterBy = $event.target.value"
+        [value]="filterBy"> -->
+    </p>
+    <p>Filter By: {{filterBy}}</p>
+    <div class="alert alert-danger" role="alert"
+      *ngIf="errorMessage !== ''">
+      {{errorMessage}}
+      <button type="button" class="close"
+        data-dismiss="alert" aria-label="Close"
+        (click)="errorMessage = ''">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <table class="table" *ngIf="filteredProducts?.length > 0; else noProducts">
+      <thead [ngStyle]="tableHeader">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">
+            <!-- <button class="btn btn-primary" (click)="toggleImage($event)">
+              Show Image
+            </button> -->
+            <input type="checkbox" [(ngModel)]="showImage">
+          </th>
+          <th scope="col">Name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Code</th>
+          <th scope="col">Description</th>
+          <th scope="col">Launch Date</th>
+          <th scope="col">Rating</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--<tr *ngFor="let product of products" [class.featured]="product.featured">-->
+          <tr *ngFor="let product of filteredProducts | slice:0:3" [ngClass]="{'featured': product.featured}">
+          <th scope="row">{{product.id}}</th>
+          <td>
+            <img *ngIf="showImage"
+              [src]="product.image" [alt]="product.name" [style.width.px]="50">
+          </td>
+          <td>
+            <a [routerLink]="['/products', product.id]">{{product.name | uppercase}}</a>
+          </td>
+          <td>{{product.price | currency:'INR':'symbol':'.2-2'}}</td>
+          <td>{{product.code | convertToSpaces:'#'}}</td>
+          <td [title]="product.description">{{product.description | slice:0:20}}</td>
+          <td>{{product.launchDate | date:'dd-MM-yyyy'}}</td>
+          <td>
+            <app-star [rating]="product.rating"
+              (ratingClick)="onRatingClick($event)"></app-star>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button (click)="unsubscribe()">Unsubscribe</button>
+
+    <ng-template #noProducts>
+      <p>No Products Available</p>
+    </ng-template>
+  </div>
+</div>
+

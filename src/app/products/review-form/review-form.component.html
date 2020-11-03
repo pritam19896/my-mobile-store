@@ -1,0 +1,33 @@
+<h2>Review Form</h2>
+<form (ngSubmit)="reviewForm.form.valid && onSubmit()" #reviewForm="ngForm">
+  {{reviewModel | json}}
+  {{reviewForm.form.valid}}
+  <div class="form-group">
+    <label>Author Name</label>
+    <input class="form-control" placeholder="Enter your name"
+      [(ngModel)]="reviewModel.author" name="author" required #authorSpy="ngModel">
+    <div class="alert alert-danger" role="alert"
+      [hidden]="authorSpy.valid || authorSpy.pristine">
+      Author is required.
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Email address</label>
+    <input type="email" class="form-control" placeholder="name@example.com"
+      [(ngModel)]="reviewModel.email" name="email" required>
+  </div>
+  <div class="form-group">
+    <label>Rating</label>
+    <select class="form-control" [(ngModel)]="reviewModel.rating"
+      name="rating" required>
+      <option [value]="rating" *ngFor="let rating of ratings">{{rating}} star</option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    <textarea class="form-control" rows="3"
+      [(ngModel)]="reviewModel.description" name="description"></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary"
+    [disabled]="reviewForm.form.invalid">Submit Review</button>
+</form>

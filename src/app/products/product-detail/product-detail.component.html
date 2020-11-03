@@ -1,0 +1,13 @@
+<div class="card" *ngIf="product$ | async as product">
+  <div class="card-header">
+    {{product.name}}
+  </div>
+  <div class="card-body">
+    <p>{{product.name}}</p>
+    <p>{{product.description}}</p>
+
+    <button class="btn btn-primary" (click)="goBack()">Back</button>
+
+    <app-review-form></app-review-form>
+  </div>
+</div>

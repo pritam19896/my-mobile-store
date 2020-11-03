@@ -1,0 +1,26 @@
+<h1><fa-icon [icon]="homeIcon"></fa-icon>{{title}}</h1>
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link " [routerLink]="['/home']"
+      [routerLinkActive]="'active'">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " [routerLink]="['/products']"
+      routerLinkActive="active">Products</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link "[routerLink]="['/todos']"
+      routerLinkActive="active">Todos</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " [routerLink]="['/profile']"
+      routerLinkActive="active">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link " [routerLink]="['/login']"
+      routerLinkActive="active">Login</a>
+    </li>
+</ul>
+
+
+<router-outlet></router-outlet>

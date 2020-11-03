@@ -1,0 +1,11 @@
+<p>todos works!</p>
+<!-- <div *ngIf="todos?.length > 0"> -->
+<div *ngIf="todos$ | async as todos">
+  <!-- <ul *ngFor="let todo of todos$ | async"> -->
+  <ul *ngFor="let todo of todos">
+    <li>userId: {{todo.userId}}</li>
+    <li>id: {{todo.id}}</li>
+    <li>title: {{todo.title}}</li>
+    <li>body: {{todo.body}}</li>
+  </ul>
+</div>
