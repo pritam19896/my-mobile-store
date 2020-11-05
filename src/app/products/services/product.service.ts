@@ -19,7 +19,7 @@ export class ProductService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<Product[]> {
-    return this.http.get<Product[]>('http://localhost:4200/assets/products.json')
+    return this.http.get<Product[]>('https://pritam19896.github.io/my-mobile-store/assets/products.json')
       .pipe(
         catchError(this.handleError)
       );
@@ -27,7 +27,7 @@ export class ProductService {
   }
 
   getProductById(id: number): Observable<Product> {
-    return this.http.get('http://localhost:4200/assets/products.json')
+    return this.http.get('https://pritam19896.github.io/my-mobile-store/assets/products.json')
       .pipe(
         catchError(this.handleError),
         map((products: Product[]) => {

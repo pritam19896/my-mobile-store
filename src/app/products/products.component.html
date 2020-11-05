@@ -2,7 +2,7 @@
   <div class="card-header">
     Products {{ratingToShow}}
     <!-- <span appHighlight [hightlightColor]="'red'">Highlighted text</span> -->
-    <span [appHighlight]="'red'">Highlighted text</span>
+    <!-- <span [appHighlight]="'red'">Highlighted text</span> -->
   </div>
   <div class="card-body">
     <p>
@@ -20,14 +20,12 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
+    <!-- --------------------------------- for desktop --------------------------------------------- -->
     <table class="table" *ngIf="filteredProducts?.length > 0; else noProducts">
       <thead [ngStyle]="tableHeader">
         <tr>
           <th scope="col">#</th>
           <th scope="col">
-            <!-- <button class="btn btn-primary" (click)="toggleImage($event)">
-              Show Image
-            </button> -->
             <input type="checkbox" [(ngModel)]="showImage">
           </th>
           <th scope="col">Name</th>
@@ -39,8 +37,8 @@
         </tr>
       </thead>
       <tbody>
-        <!--<tr *ngFor="let product of products" [class.featured]="product.featured">-->
-          <tr *ngFor="let product of filteredProducts | slice:0:3" [ngClass]="{'featured': product.featured}">
+        <!-- [ngClass]="{'featured': product.featured}" -->
+          <tr *ngFor="let product of filteredProducts | slice:0:3" >
           <th scope="row">{{product.id}}</th>
           <td>
             <img *ngIf="showImage"
@@ -60,6 +58,25 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- --------------------------------- for mobile --------------------------------------------- -->
+    <div class="container" *ngIf="filteredProducts?.length > 0; else noProducts">
+      <div class="row" *ngFor="let product of filteredProducts | slice:0:3">
+          <div class="col-sm bg-light card"><a [routerLink]="['/products', product.id]">
+            <img class="imgsize card-img-top " [src]="product.image" [alt]="product.name">
+            <p> <app-star [rating]="product.rating"
+              (ratingClick)="onRatingClick($event)"></app-star></p>
+            <p class='txtproperty card-text'>{{product.name}}</p>
+            <p>{{product.price | currency:'INR':'symbol':'.2-2'}}</p>
+            <p>Code:{{product.code | convertToSpaces:'#'}}</p>
+            <p></p>
+            <p>launchDate: {{product.launchDate | date:'dd-MM-yyyy'}}</p>
+          </a> 
+          </div>
+      </div>
+    </div> 
+
+
 
     <button (click)="unsubscribe()">Unsubscribe</button>
 
